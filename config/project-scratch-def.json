@@ -1,0 +1,18 @@
+{
+  "orgName": "Scratch Org Demo",
+  "edition": "Developer",
+  "features": [
+    "EnableSetPasswordInApi"
+  ],
+  "adminEmail": "ehernandez@mmpcapital.com",
+  "description": "This org is created for scratch org demo",
+  "hasSampleData": true,
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}
