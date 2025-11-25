@@ -30,13 +30,12 @@ jobs:
         run: sfdx auth:sfdxurl:store -f ./INT_SFDX_URL.txt -s -a targetOrg
       - name: Installing sfdx git delta
         run: |
-          echo y | sfdx plugins:install sfdx-git-delta
-          sfdx plugins 
+          echo y | sf plugins install sfdx-git-delta
+          sf plugins
       - name: Create delta packages for new, modified or deleted metadata
         run: >
           mkdir changed-sources
-
-          sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/ 
+          sf sgd source delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/ 
       - name: Installing java
         run: sudo apt-get update && sudo apt-get install default-jdk
       - name: Installing SFDX scanner
