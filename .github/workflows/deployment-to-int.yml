@@ -35,6 +35,7 @@ jobs:
       - name: Create delta packages for new, modified or deleted metadata
         run: >
           mkdir changed-sources
+          
           sf sgd source delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/ 
       - name: Installing java
         run: sudo apt-get update && sudo apt-get install default-jdk
