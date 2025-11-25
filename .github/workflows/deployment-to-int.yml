@@ -77,3 +77,4 @@ jobs:
           echo ${{env.APEX_TESTS}}
 
           sf project deploy start --source-dir 'hanged-sources/force-app' --test-level RunLocalTests --json
+# 
