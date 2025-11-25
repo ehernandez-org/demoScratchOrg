@@ -50,7 +50,7 @@ jobs:
           # --category 'Best Practices,Security,Design,Performance,Code Style'
           # --outfile 'changed-sources/apexScanResults.sarif'
 
-          sf code-analyzer run --rule-selector Recommended --workspace ./changed-sources --target ./changed-sources/**/*.cls --severity-threshold 3 --output-file ./changed-sources/apexScanResults.sarif --view detail
+          sf code-analyzer run --rule-selector Recommended --workspace ./changed-sources --target ./changed-sources/**/*.cls --severity-threshold 2 --output-file ./changed-sources/apexScanResults.sarif --view detail
       # - name: Upload SARIF file
       #   uses: github/codeql-action/upload-sarif@v4
       #   with:
