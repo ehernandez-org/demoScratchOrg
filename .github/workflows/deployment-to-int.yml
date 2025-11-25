@@ -8,6 +8,9 @@ on:
       - force-app/**
     branches:
       - main
+permissions:
+  contents: read
+  security-events: write
 jobs:
   deployment-to-int:
     runs-on: ubuntu-latest
