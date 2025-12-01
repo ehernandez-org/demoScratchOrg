@@ -17,8 +17,8 @@ jobs:
         run: |
           echo $RELEASE_BODY
           FILE=./parseBody.js
-          if test -f "$FILE";
-          then
+          echo $FILE
+          if test -f "$FILE"; then
             echo $RELEASE_BODY > ./release_body.txt
             node ./parseBody.js
             TESTS=$(cat testsToRun.txt)
