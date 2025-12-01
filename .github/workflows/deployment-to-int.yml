@@ -79,4 +79,3 @@ jobs:
           echo ${{env.APEX_TESTS}}
 
           sf project deploy start --ignore-conflicts --source-dir ./changed-sources/force-app --test-level RunLocalTests --json
-# 
