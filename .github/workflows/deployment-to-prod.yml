@@ -1,10 +1,7 @@
 name: Deployment to PROD
 on:
-  push:
-    tags:
-      - 'v*' # Trigger on pushes to tags starting with 'v'
-    branches:
-      - main
+  release:
+    types: [published]
 permissions:
   contents: read
   security-events: write
@@ -14,26 +11,19 @@ jobs:
   extract-notes:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Extract Release Notes
-        id: get_release_notes
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const tag_name = context.ref.replace('refs/tags/', '');
-            const { data: release } = await github.rest.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: tag_name,
-            });
-            core.setOutput('release_notes', release.body);
-
-      - name: Use Release Notes
+      - name: Read Release Body
+        env:
+          RELEASE_BODY: ${{github.event.release.body}}
         run: |
-          echo "Extracted Release Notes:"
-          echo "${{ steps.get_release_notes.outputs.release_notes }}"
-          # You can now use ${{ steps.get_release_notes.outputs.release_notes }}
-          # in subsequent steps, for example, to publish to another platform
-          # or generate a changelog file.
+          
+          FILE=./parseBody.js 
+          if test -f "$FILE"; then
+              echo $RELEASE_BODY > ./release_body.txt
+              node ./parseBody.js              
+              TESTS=$(cat testsToRun.txt)
+              echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV     
+          else
+              TESTS=all
+              echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV 
+          fi
+          echo "Extracted APEX_TESTS: $APEX_TESTS"
