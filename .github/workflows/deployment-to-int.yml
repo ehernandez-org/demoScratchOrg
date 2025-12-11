@@ -15,7 +15,7 @@ permissions:
   actions: read
 jobs:
   deployment-to-int:
-    if: startsWith(github.head_ref, 'feature/')
+    # if: startsWith(github.head_ref, 'feature/')
     runs-on: ubuntu-latest
     steps:
       - name: Install NodeJS
@@ -48,7 +48,7 @@ jobs:
       - name: Installing SFDX analyzer
         run: sf plugins install code-analyzer
       - name: Analize code
-        run: sf code-analyzer run --rule-selector Recommended --workspace ./changed-sources --target ./changed-sources/**/*.cls --severity-threshold 2 --output-file ./changed-sources/apexScanResults.sarif
+        run: sf code-analyzer run --rule-selector Recommended --workspace ./changed-sources --target ./changed-sources/**/*.cls --severity-threshold 1 --output-file ./changed-sources/apexScanResults.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v4
         with:

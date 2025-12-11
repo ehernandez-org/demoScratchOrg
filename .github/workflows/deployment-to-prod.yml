@@ -5,6 +5,7 @@ on:
       - 'v*.*.*'
 jobs:
   deploy-to-prod:
+    # if: startsWith(github.head_ref, 'feature/')
     runs-on: ubuntu-latest
     steps:
       - name: Install NodeJS
@@ -28,7 +29,7 @@ jobs:
       - name: Installing SFDX analyzer
         run: sf plugins install code-analyzer
       - name: Analize code
-        run: sf code-analyzer run --rule-selector Recommended --target ./**/*.cls --severity-threshold 2 --output-file ./apexScanResults.sarif
+        run: sf code-analyzer run --rule-selector Recommended --target ./**/*.cls --severity-threshold 1 --output-file ./apexScanResults.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v4
         with:
@@ -36,4 +37,3 @@ jobs:
       - name: Deployment - run all tests
         run: >
           sf project deploy start --ignore-conflicts --source-dir ./force-app --test-level RunLocalTests --json
-
